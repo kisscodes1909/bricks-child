@@ -1,0 +1,12 @@
+/**
+ * Global CSS Classes
+ * Uses CSS variables defined in Bricks
+ */
+
+/* Typography - Small text */
+.cart-item__sku,
+.cart-item__stock,
+.cart-item__variation,
+.woocommerce-cart-form dl.variation {
+	font-size: var(--brxw-text-s);
+}

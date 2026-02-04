@@ -6,6 +6,17 @@ add_action( 'wp_enqueue_scripts', function() {
 	// Enqueue your files on the canvas & frontend, not the builder panel. Otherwise custom CSS might affect builder)
 	if ( ! bricks_is_builder_main() ) {
 		wp_enqueue_style( 'bricks-child', get_stylesheet_uri(), ['bricks-frontend'], filemtime( get_stylesheet_directory() . '/style.css' ) );
+
+		// Enqueue base CSS (global classes)
+		$base_css = get_stylesheet_directory() . '/assets/css/base.css';
+		if ( file_exists( $base_css ) ) {
+			wp_enqueue_style(
+				'bricks-child-base',
+				get_stylesheet_directory_uri() . '/assets/css/base.css',
+				[ 'bricks-child' ],
+				filemtime( $base_css )
+			);
+		}
 	}
 } );
 
