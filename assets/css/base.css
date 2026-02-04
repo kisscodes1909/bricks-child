@@ -10,3 +10,22 @@
 .woocommerce-cart-form dl.variation {
 	font-size: var(--brxw-text-s);
 }
+
+/* Global input typography - WooCommerce forms */
+.woocommerce input[type="text"],
+.woocommerce input[type="email"],
+.woocommerce input[type="number"],
+.woocommerce input[type="tel"],
+.woocommerce input[type="password"],
+.woocommerce select,
+.woocommerce textarea,
+.woocommerce .input-text,
+.woocommerce-cart input[type="text"],
+.woocommerce-cart .input-text,
+.woocommerce-checkout input[type="text"],
+.woocommerce-checkout .input-text,
+input.input-text,
+.coupon input[type="text"],
+.coupon .input-text {
+	font-size: var(--brxw-text-s);
+}

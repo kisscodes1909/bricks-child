@@ -9,16 +9,34 @@
 	flex-direction: column;
 }
 
-/* Sections with default border (can be overridden via Bricks) */
+/* Sections with default border (can be overridden via Bricks controls) */
 .order-summary-list .order-summary-section {
 	display: flex;
 	flex-direction: column;
 	gap: 1.25rem;
 	padding: 1.5rem 0;
-	border-bottom: 1px solid currentColor;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: currentColor;
 }
 
-.order-summary-list .order-summary-section:last-child {
+/* Section: Totals (Subtotal, Shipping, Tax) */
+.order-summary-list .order-summary-section-totals {
+	padding-top: 0;
+}
+
+/* Section: Total */
+.order-summary-list .order-summary-section-total {
+	/* inherits border from .order-summary-section */
+}
+
+/* Section: Coupon */
+.order-summary-list .order-summary-section-coupon {
+	/* inherits border from .order-summary-section */
+}
+
+/* Section: Checkout - no border */
+.order-summary-list .order-summary-section-checkout {
 	border-bottom: none;
 }
 
@@ -108,9 +126,4 @@
 .order-summary-list .order-summary-coupon-content .coupon .input-text {
 	flex: 1;
 	min-width: 0;
-}
-
-/* Checkout section */
-.order-summary-list .order-summary-section-checkout {
-	border-bottom: none;
 }
