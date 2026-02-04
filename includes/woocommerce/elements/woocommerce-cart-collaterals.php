@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Woocommerce_Cart_Collaterals_List extends Woocommerce_Cart_Collaterals {
 
 	/**
-	 * Enqueue element-specific styles and scripts.
+	 * Enqueue element-specific styles.
+	 * Note: JS removed - coupon toggle uses pure CSS <details>/<summary>
 	 */
 	public function enqueue_scripts() {
 		$css_file = get_stylesheet_directory() . '/assets/css/elements/woocommerce-cart-collaterals.css';
@@ -25,17 +26,6 @@ class Woocommerce_Cart_Collaterals_List extends Woocommerce_Cart_Collaterals {
 				get_stylesheet_directory_uri() . '/assets/css/elements/woocommerce-cart-collaterals.css',
 				[],
 				filemtime( $css_file )
-			);
-		}
-
-		$js_file = get_stylesheet_directory() . '/assets/js/elements/woocommerce-cart-collaterals.js';
-		if ( file_exists( $js_file ) ) {
-			wp_enqueue_script(
-				'bricks-child-cart-collaterals',
-				get_stylesheet_directory_uri() . '/assets/js/elements/woocommerce-cart-collaterals.js',
-				[ 'jquery' ],
-				filemtime( $js_file ),
-				true
 			);
 		}
 	}
@@ -190,15 +180,15 @@ class Woocommerce_Cart_Collaterals_List extends Woocommerce_Cart_Collaterals {
 			}
 			?>
 
-			<div class="cart_totals">
+			<section class="cart_totals" aria-labelledby="cart-totals-heading">
 				<?php if ( ! isset( $settings['hideTitle'] ) ) : ?>
-					<h2><?php esc_html_e( 'Cart totals', 'woocommerce' ); ?></h2>
+					<h2 id="cart-totals-heading"><?php esc_html_e( 'Cart totals', 'woocommerce' ); ?></h2>
 				<?php endif; ?>
 
-				<div class="order-summary-rows">
+				<dl class="order-summary-rows">
 
 					<?php // Section 1: Subtotal, Shipping, Tax ?>
-					<div class="order-summary-section order-summary-section-totals">
+					<div class="order-summary-section order-summary-section-totals" role="group" aria-label="<?php esc_attr_e( 'Order subtotals', 'woocommerce' ); ?>">
 						<?php // Subtotal ?>
 						<div class="order-summary-row cart-subtotal">
 							<span class="order-summary-label"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></span>
@@ -254,7 +244,7 @@ class Woocommerce_Cart_Collaterals_List extends Woocommerce_Cart_Collaterals {
 					</div>
 
 					<?php // Section 2: Total ?>
-					<div class="order-summary-section order-summary-section-total">
+					<div class="order-summary-section order-summary-section-total" role="group" aria-label="<?php esc_attr_e( 'Order total', 'woocommerce' ); ?>">
 						<div class="order-summary-row order-total">
 							<span class="order-summary-label"><?php esc_html_e( 'Total', 'woocommerce' ); ?></span>
 							<span class="order-summary-value"><?php wc_cart_totals_order_total_html(); ?></span>
@@ -262,45 +252,45 @@ class Woocommerce_Cart_Collaterals_List extends Woocommerce_Cart_Collaterals {
 						<?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
 					</div>
 
-					<?php // Section 3: Discount/Coupon (collapsible) ?>
+					<?php // Section 3: Discount/Coupon (collapsible) - Pure CSS with <details> ?>
 					<?php if ( wc_coupons_enabled() ) : ?>
 					<div class="order-summary-section order-summary-section-coupon">
-						<div class="order-summary-coupon">
-							<div class="order-summary-coupon-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="coupon-content">
-								<span class="coupon-toggle-icon">
-									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<details class="order-summary-coupon">
+							<summary class="order-summary-coupon-toggle">
+								<span class="coupon-toggle-icon" aria-hidden="true">
+									<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
 										<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
 										<line x1="7" y1="7" x2="7.01" y2="7"></line>
 									</svg>
 								</span>
 								<span class="coupon-toggle-text"><?php esc_html_e( 'Have a Discount Code?', 'woocommerce' ); ?></span>
-								<span class="coupon-toggle-arrow">
-									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<span class="coupon-toggle-arrow" aria-hidden="true">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
 										<polyline points="9 18 15 12 9 6"></polyline>
 									</svg>
 								</span>
-							</div>
-							<div class="order-summary-coupon-content" id="coupon-content" style="display: none;">
-								<div class="coupon">
+							</summary>
+							<div class="order-summary-coupon-content">
+								<div class="coupon" role="group" aria-label="<?php esc_attr_e( 'Apply coupon code', 'woocommerce' ); ?>">
 									<label for="coupon_code" class="screen-reader-text"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label>
-									<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" />
+									<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" autocomplete="off" />
 									<button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply', 'woocommerce' ); ?></button>
 									<?php do_action( 'woocommerce_cart_coupon' ); ?>
 								</div>
 							</div>
-						</div>
+						</details>
 					</div>
 					<?php endif; ?>
 
 					<?php // Section 4: Checkout Button ?>
-					<div class="order-summary-section order-summary-section-checkout">
+					<nav class="order-summary-section order-summary-section-checkout" aria-label="<?php esc_attr_e( 'Checkout', 'woocommerce' ); ?>">
 						<div class="wc-proceed-to-checkout">
 							<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
 						</div>
-					</div>
+					</nav>
 
-				</div>
-			</div>
+				</dl>
+			</section>
 		</div>
 		<?php
 
