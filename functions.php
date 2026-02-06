@@ -17,8 +17,23 @@ add_action( 'wp_enqueue_scripts', function() {
 				filemtime( $base_css )
 			);
 		}
+
+		// B2B King: font override (Conversations, Subaccounts, Offers); separate file for plugin support.
+		// Load only when B2B King has enqueued Subaccounts/Offers/Conversations style (My Account or marketplace dashboard).
+		// Oswald font already available on site; do not enqueue again.
+		if ( function_exists( 'b2bking' ) && ( is_account_page() || ( method_exists( b2bking(), 'is_marketplace_dashboard' ) && b2bking()->is_marketplace_dashboard() ) ) ) {
+			$b2bking_css = get_stylesheet_directory() . '/assets/css/b2bking-conversations.css';
+			if ( file_exists( $b2bking_css ) ) {
+				wp_enqueue_style(
+					'bricks-child-b2bking-conversations',
+					get_stylesheet_directory_uri() . '/assets/css/b2bking-conversations.css',
+					[ 'b2bking_sub_offers_conv' ],
+					filemtime( $b2bking_css )
+				);
+			}
+		}
 	}
-} );
+}, 20 );
 
 /**
  * Register custom elements

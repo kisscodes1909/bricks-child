@@ -1,0 +1,37 @@
+/**
+ * B2B King – Font override (Conversations, Subaccounts, Offers)
+ *
+ * File riêng trong child theme để ghi đè font do plugin B2B King định nghĩa.
+ * Plugin dùng: style-sub-offers-conv.css (biến --b2bking-font-family-*) hoặc
+ * style-sub-offers-conv.min.css (font inlined: Roboto / "Roboto Medium").
+ * File .min KHÔNG dùng CSS variables nên override :root không đủ – cần ghi đè
+ * trực tiếp trên container và phần tử con.
+ *
+ * Load sau style plugin (dependency: b2bking_sub_offers_conv).
+ * Không sửa file trong plugin để tránh mất thay đổi khi cập nhật B2B King.
+ */
+
+/* Ghi đè biến cho bản CSS không min (dùng var(--b2bking-font-family-*)) */
+:root {
+	--b2bking-font-family-a: 'Oswald', sans-serif;
+	--b2bking-font-family-b: 'Oswald', sans-serif;
+	--b2bking-font-family-c: 'Oswald', sans-serif;
+}
+
+/*
+ * Ghi đè font trực tiếp cho bản .min (font inlined, không dùng variable).
+ * Container Subaccounts, Offers, Conversations + trang chi tiết conversation.
+ */
+#b2bking_myaccount_conversations_container,
+#b2bking_myaccount_conversation_endpoint_container,
+#b2bking_myaccount_offers_container,
+.b2bking_subaccounts_container {
+	font-family: 'Oswald', sans-serif;
+}
+
+#b2bking_myaccount_conversations_container *,
+#b2bking_myaccount_conversation_endpoint_container *,
+#b2bking_myaccount_offers_container *,
+.b2bking_subaccounts_container * {
+	font-family: 'Oswald', sans-serif !important;
+}

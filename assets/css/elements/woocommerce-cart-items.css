@@ -16,10 +16,10 @@
 .woocommerce-cart-form .cart-items__actions {
 	margin-top: 1rem;
 	padding-top: 1rem;
-	display: flex;
+	/* display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 1rem;
+	gap: 1rem; */
 }
 
 /* ==========================================================================
