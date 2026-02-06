@@ -1,0 +1,15 @@
+/**
+ * B2B King – Font override (Bulk Order table/form)
+ *
+ * Separate file in child theme to override fonts defined by B2B King plugin
+ * in style-bulkorder.css or style-bulkorder.min.css (both use CSS variables
+ * --b2bking-font-family-*). This file loads after the plugin style (dependency:
+ * b2bking_bulkorder) so the override applies. Do not edit plugin files to
+ * avoid losing changes on B2B King updates.
+ */
+
+:root {
+	--b2bking-font-family-a: 'Oswald', sans-serif;
+	--b2bking-font-family-b: 'Oswald', sans-serif;
+	--b2bking-font-family-c: 'Oswald', sans-serif;
+}

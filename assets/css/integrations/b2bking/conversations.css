@@ -1,0 +1,33 @@
+/**
+ * B2B King – Font override (Conversations, Subaccounts, Offers)
+ *
+ * Child theme file to override fonts defined by B2B King in style-sub-offers-conv.css
+ * (variables --b2bking-font-family-*) or style-sub-offers-conv.min.css (inlined Roboto).
+ * The min version does not use CSS variables, so override :root and target containers directly.
+ * Load after plugin style (dependency: b2bking_sub_offers_conv). Do not edit plugin files.
+ */
+
+/* Override variables for non-min build (uses var(--b2bking-font-family-*)) */
+:root {
+	--b2bking-font-family-a: 'Oswald', sans-serif;
+	--b2bking-font-family-b: 'Oswald', sans-serif;
+	--b2bking-font-family-c: 'Oswald', sans-serif;
+}
+
+/*
+ * Direct font override for .min build (inlined font, no variables).
+ * Containers: Subaccounts, Offers, Conversations and conversation detail.
+ */
+#b2bking_myaccount_conversations_container,
+#b2bking_myaccount_conversation_endpoint_container,
+#b2bking_myaccount_offers_container,
+.b2bking_subaccounts_container {
+	font-family: 'Oswald', sans-serif;
+}
+
+#b2bking_myaccount_conversations_container *,
+#b2bking_myaccount_conversation_endpoint_container *,
+#b2bking_myaccount_offers_container *,
+.b2bking_subaccounts_container * {
+	font-family: 'Oswald', sans-serif !important;
+}
