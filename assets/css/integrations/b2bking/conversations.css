@@ -31,3 +31,15 @@
 .b2bking_subaccounts_container * {
 	font-family: 'Oswald', sans-serif !important;
 }
+
+/* Offer table line items: 11px → 16px */
+#b2bking_myaccount_offers_container .b2bking_myaccount_individual_offer_element_line_item,
+.b2bking_myaccount_individual_offer_element_line_item {
+	font-size: 16px !important;
+}
+
+/* Offer table: custom text (same as style-sub-offers-conv.css) */
+.b2bking_myaccount_individual_offer_custom_text,
+.b2bking_myaccount_individual_offer_custom_text_vendor {
+	font-size: 16px !important;
+}
